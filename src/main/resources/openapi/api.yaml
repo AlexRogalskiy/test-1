@@ -1,0 +1,286 @@
+openapi: 3.0.0
+info:
+  title: REST API
+  version: '1.0'
+  contact:
+    name: Daniil Pryakhin
+    url: 'https://spb.hh.ru/resume/432d2ffeff0647d0210039ed1f684e72663670'
+    email: hoof7@mail.ru
+servers:
+  - url: 'http://localhost:8010/test'
+    description: test
+paths:
+  /profiles/set:
+    post:
+      summary: Добавить профиль
+      operationId: post-profiles-set
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profiles_set_response'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profiles_set_request'
+      description: ''
+      tags:
+        - profile
+    parameters: []
+  /profiles:
+    get:
+      summary: Получить список профилей
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profiles_response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      operationId: get-profiles
+  /profiles/last:
+    get:
+      summary: Получить последний добавленный профиль
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profile'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      operationId: get-profiles-last
+  '/profiles/{ID}':
+    parameters:
+      - schema:
+          type: integer
+        name: ID
+        in: path
+        required: true
+        description: Id профиля
+    get:
+      summary: Получить профиль по ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profile'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      operationId: get-profiles-Id
+  /profiles/get:
+    parameters: []
+    post:
+      summary: Получить профиль по email
+      operationId: post-profiles-get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profile'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profiles_get_request'
+  /error/last:
+    get:
+      summary: Получить сообщение последней ошибки
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_last_response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      operationId: get-error-last
+  /exit:
+    get:
+      summary: Завершить работу приложения
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      operationId: get-exit
+components:
+  schemas:
+    profiles_set_request:
+      title: profiles_set_request
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя
+        email:
+          type: string
+          description: Почта
+          format: email
+          pattern: "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"
+        age:
+          type: integer
+          description: Возраст
+          minimum: 0
+      required:
+        - name
+        - email
+        - age
+    profiles_set_response:
+      title: profiles_set_response
+      type: object
+      properties:
+        idUser:
+          type: integer
+          description: Id Пользователя
+      required:
+        - idUser
+    response:
+      title: response
+      type: object
+      properties:
+        msg:
+          type: string
+          description: Сообщение
+      required:
+        - msg
+    profile:
+      title: profiles_get_request
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id профиля
+        name:
+          type: string
+          description: Имя человека
+        email:
+          type: string
+          description: Почта
+        age:
+          type: integer
+          description: Возраст
+        created:
+          type: string
+          description: Дата создания профиля
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - age
+        - created
+    profiles_response:
+      title: profiles_response
+      type: array
+      items:
+        $ref: '#/components/schemas/profile'
+    profiles_get_request:
+      title: profiles_get_request
+      type: object
+      properties:
+        email:
+          type: string
+          description: email профиля
+          format: email
+      required:
+        - email
+    error_last_response:
+      title: error_last_response
+      type: object
+      properties:
+        msg:
+          type: string
+          description: Сообщение последней ошибки
+        created:
+          type: string
+          description: Когда ошибка произошла
+          format: date-time
+      required:
+        - msg
+        - created
+  securitySchemes: {}
