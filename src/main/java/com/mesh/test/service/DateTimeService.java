@@ -6,10 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 @Service
-public class DateTimeManager {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+public class DateTimeService {
+    static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    public String getCurrent() {
+    private DateTimeService() {
+
+    }
+
+    public static String getCurrent() {
         return dtf.format(LocalDateTime.now());
     }
+
 }
