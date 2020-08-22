@@ -53,17 +53,18 @@ public class ProfilesApiImpl implements ProfilesApi {
 
     @Override
     public Response getProfilesLast() {
+        Profile profile = profileRepository.findByLastDate()
+                .orElseThrow(() -> new NotFoundRestException("Профилей не найдено"));
+
         return Response.ok()
-                .entity(profileRepository.findByLastDate())
+                .entity(profile)
                 .build();
     }
 
     @Override
     public Response getProfilesId(Integer id) {
-        Profile profile = profileRepository.findById(id);
-
-        if (profile == null)
-            throw new NotFoundRestException("Запись с таким ID не найдена");
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new NotFoundRestException("Запись с таким ID не найдена"));
 
         return Response.ok()
                 .entity(profile)
@@ -73,10 +74,8 @@ public class ProfilesApiImpl implements ProfilesApi {
     @Override
     public Response postProfilesGet(@Valid ProfilesGetRequestDTO profilesGetRequestDTO) {
         String email = profilesGetRequestDTO.getEmail().toLowerCase();
-        Profile profile = profileRepository.findByEmail(email);
-
-        if (profile == null)
-            throw new NotFoundRestException("Запись с таким email не найдена");
+        Profile profile = profileRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundRestException("Запись с таким email не найдена"));
 
         return Response.ok()
                 .entity(profile)
