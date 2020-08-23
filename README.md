@@ -18,7 +18,7 @@
  
 	Создать конфигурацию запуска **Tomcat Server**,  во вкладке *Server* в окно *Before Launch* добавить конфигурацию **Run Maven Goal** со следующей командой:
 	```maven
-		clean install
+	clean install
 	```
 	> Кроме **Run Maven Goal** в окне *Before Launch* больше ничего быть не должно
 
@@ -43,13 +43,13 @@
 
 **Создание *пользователя*** осуществляется через следующий запрос:
 ```bash
-	curl --request POST \
-	  --url http://localhost:8010/test/api/sign \
-	  --header 'content-type: application/json' \
-	  --data '{
-		"username": <новый логин>,
-		"password": <ваш пароль>
-	}'
+curl --request POST \
+  --url http://localhost:8010/test/api/sign \
+  --header 'content-type: application/json' \
+  --data '{
+	"username": <новый логин>,
+	"password": <ваш пароль>
+}'
 ```
 > Вы можете создавать пользователей с любыми логинами и паролями: логин и пароль потребуются для получения *токена*
 
@@ -61,23 +61,23 @@
 
 После успешной регистрации, *токен* для этого *пользователя* получается  следующим запросом:
 ```bash
-	curl --request POST \
-	  --url http://client:secret@localhost:8010/test/oauth/token \
-	  --header 'content-type: application/x-www-form-urlencoded' \
-	  --data grant_type=password \
-	  --data username=<логин пользователя> \
-	  --data password=<пароль пользователя>
+curl --request POST \
+  --url http://client:secret@localhost:8010/test/oauth/token \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data grant_type=password \
+  --data username=<логин пользователя> \
+  --data password=<пароль пользователя>
 ```
 При успешном выполнении запроса вернется следующий *Response*:
 ```json
-	{
-	  "access_token": "<токен для доступа сервисам>",
-	  "token_type": "bearer",
-	  "refresh_token": "<токен для обновления токена доступа>",
-	  "expires_in": 43199,
-	  "scope": "read write",
-	  "jti": "b1ff5964-2e11-40..."
-	}
+{
+  "access_token": "<токен для доступа сервисам>",
+  "token_type": "bearer",
+  "refresh_token": "<токен для обновления токена доступа>",
+  "expires_in": 43199,
+  "scope": "read write",
+  "jti": "b1ff5964-2e11-40..."
+}
 ```
 Теперь можно пользоваться сервисом. К каждому запросу, требующиму авторизации, необходимо добавить следующий **Header**:
 
