@@ -1,7 +1,5 @@
 package com.mesh.test.repository.entity;
 
-import com.mesh.test.model.UserDTO;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 
