@@ -7,7 +7,7 @@ info:
     url: 'https://spb.hh.ru/resume/432d2ffeff0647d0210039ed1f684e72663670'
     email: hoof7@mail.ru
 servers:
-  - url: 'http://localhost:8010/test'
+  - url: 'http://localhost:8010/test/api'
     description: test
 paths:
   /profiles/set:
@@ -47,11 +47,15 @@ paths:
       description: ''
       tags:
         - profile
+      security:
+        - oauth2:
+            - write
     parameters: []
   /profiles:
     get:
       summary: Получить список профилей
-      tags: []
+      tags:
+        - profile
       responses:
         '200':
           description: OK
@@ -66,10 +70,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
       operationId: get-profiles
+      security:
+        - oauth2:
+            - read
   /profiles/last:
     get:
       summary: Получить последний добавленный профиль
-      tags: []
+      tags:
+        - profile
       responses:
         '200':
           description: OK
@@ -88,6 +96,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
       operationId: get-profiles-last
+      security:
+        - oauth2:
+            - read
   '/profiles/{ID}':
     parameters:
       - schema:
@@ -98,7 +109,8 @@ paths:
         description: Id профиля
     get:
       summary: Получить профиль по ID
-      tags: []
+      tags:
+        - profile
       responses:
         '200':
           description: OK
@@ -123,6 +135,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
       operationId: get-profiles-Id
+      security:
+        - oauth2:
+            - read
   /profiles/get:
     parameters: []
     post:
@@ -152,10 +167,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/profiles_get_request'
+      security:
+        - oauth2:
+            - read
+      tags:
+        - profile
   /error/last:
     get:
       summary: Получить сообщение последней ошибки
-      tags: []
       responses:
         '200':
           description: OK
@@ -170,10 +189,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
       operationId: get-error-last
+      security:
+        - oauth2:
+            - read
   /exit:
     get:
       summary: Завершить работу приложения
-      tags: []
       responses:
         '200':
           description: OK
@@ -188,6 +209,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
       operationId: get-exit
+  /sign:
+    parameters: []
+    post:
+      summary: Создать пользователя
+      operationId: post-sign
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sign_user_response'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      tags:
+        - sign
 components:
   schemas:
     profiles_set_request:
@@ -283,4 +341,35 @@ components:
       required:
         - msg
         - created
-  securitySchemes: {}
+    user:
+      title: user
+      type: object
+      properties:
+        username:
+          type: string
+          description: логин пользователя
+        password:
+          type: string
+          description: пароль пользователя
+      required:
+        - username
+        - password
+    sign_user_response:
+      title: sign_response
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Id созданного пользователя
+      required:
+        - userId
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: 'http://localhost:8010/test/oauth/token'
+          scopes:
+            read: Чтение
+            write: Запись
+          refreshUrl: 'http://localhost:8010/test/oauth/token'

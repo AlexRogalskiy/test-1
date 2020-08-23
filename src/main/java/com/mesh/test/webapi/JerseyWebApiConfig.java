@@ -5,10 +5,10 @@ import org.glassfish.jersey.server.ServerProperties;
 
 import javax.ws.rs.ApplicationPath;
 
-@ApplicationPath("/")
-class WebApiConfig extends ResourceConfig {
+@ApplicationPath("/api")
+class JerseyWebApiConfig extends ResourceConfig {
 
-    public WebApiConfig() {
+    public JerseyWebApiConfig() {
         init();
     }
 
