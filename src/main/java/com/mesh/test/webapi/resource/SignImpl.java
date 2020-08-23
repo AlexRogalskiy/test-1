@@ -25,20 +25,18 @@ public class SignImpl implements SignApi {
 
 
     @Override
-    public Response postSign(@Valid UserDTO user) {
-        SignUserResponseDTO signUserResponseDTO = new SignUserResponseDTO();
+    public Response postSign(@Valid UserDTO userDTO) {
+        UserEntity user;
 
         try {
-            signUserResponseDTO.setUserId(
-                    userRepository.save(
-                            new UserEntity(user.getUsername(), passwordEncoder.encode(user.getPassword())))
-                            .getId());
+            user = userRepository.save(
+                    new UserEntity(userDTO.getUsername(), passwordEncoder.encode(userDTO.getPassword())));
         } catch (DataIntegrityViolationException e) {
             throw new ForbiddenRestException("Пользователь с таким логином уже существует");
         }
 
         return Response.ok()
-                .entity(signUserResponseDTO)
+                .entity(new SignUserResponseDTO().userId(user.getId()))
                 .build();
     }
 }

@@ -31,23 +31,20 @@ public class ProfilesApiImpl implements ProfilesApi {
     }
 
     @Override
-    public Response postProfilesSet(@Valid ProfilesSetRequestDTO profile) {
-        ProfilesSetResponseDTO profilesSetResponseDTO = new ProfilesSetResponseDTO();
+    public Response postProfilesSet(@Valid ProfilesSetRequestDTO profileDTO) {
+        Profile profile;
 
-        profile.setEmail(profile.getEmail().toLowerCase());
-        profile.setName(profile.getName().toLowerCase());
+        profileDTO.setEmail(profileDTO.getEmail().toLowerCase());
+        profileDTO.setName(profileDTO.getName().toLowerCase());
 
         try {
-            profilesSetResponseDTO.setIdUser(
-                    profileRepository.save(
-                            new Profile(profile, DateTimeService.getCurrent()))
-                            .getId());
+            profile = profileRepository.save(new Profile(profileDTO, DateTimeService.getCurrent()));
         } catch (DataIntegrityViolationException e) {
             throw new ForbiddenRestException("Запись с таким email уже создана");
         }
 
         return Response.ok()
-                .entity(profilesSetResponseDTO)
+                .entity(new ProfilesSetResponseDTO().idUser(profile.getId()))
                 .build();
     }
 
