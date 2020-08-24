@@ -26,6 +26,7 @@
 	И во вкладке *Deployment* добавить артефакт **test:war exploded**.
 	> **Совет:** Не забудьте заменить *Application context* с **/test_war_exploded** на **/test**, иначе сервер будет работать по первому пути 
 
+
 ## Получение токена
 
 В проекте используется протокол *OAuth2*, что подразумевает, что с каждым запросом (кроме `/api/exit` и `/api/sign`) на сервер должен передаваться *токен*, иначе сервер будет возвращать ошибку *401 Unauthorized*.
@@ -60,7 +61,7 @@ curl --request POST \
 
 ### Получение токена
 
-После успешной регистрации, **получение *токена*   пользователем** осуществляется следующим запросом:
+После успешной регистрации, **получение *токена* пользователем** осуществляется следующим запросом:
 ```bash
 curl --request POST \
   --url http://client:secret@localhost:8010/test/oauth/token \
@@ -107,3 +108,18 @@ curl --request GET \
   --url http://localhost:8010/test/api/profiles \
   --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXBpIl0sInVzZXJfbmFtZSI6ImFkbWluIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU5ODIyNDYyNSwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiYjFmZjU5NjQtMmUxMS00MDBhLWE1MjYtYjJjOGY0OGJjZTE2IiwiY2xpZW50X2lkIjoiY2xpZW50In0.2PAauX-if2rz9OQvGgC6QCYTzRlk0xu0f_CYtH22CF4'
 ```
+
+### Все запросы
+Помимо того, что вы можете сгенерировать документацию из  `src\resources\openapi\api.yaml` [тут](https://editor.swagger.io/), вы можете импортировать все рабочие запросы в ***Insomnia Core*** из файла `additional\insomnia_all_requests.json`.
+
+
+# Краткое описание
+Для создания **REST** части приложения я использовал *Maven* плагин ***OpenAPI Generator***. 
+При сборке приложения *Maven'ом*, плагин из файла `src\resources\openapi\api.yaml` генерирует интерфейсы с `jax-rs` аннотациями, а также сущности запросов. 
+
+Со *сгенерированными интерфесами* вы можете ознакомиться по пути `
+target\**\com\mesh\test\webapi\*`, и с *сущностями запросов* по 
+`target\**\com\mesh\test\model\*` соответственно. 
+
+После этого остаётся только прописать имплементацию интерфесов: `com\mesh\test\webapi\resource\*`.
+
