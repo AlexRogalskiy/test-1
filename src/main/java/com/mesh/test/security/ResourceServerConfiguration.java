@@ -25,6 +25,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().antMatcher("/**").authorizeRequests()
                 .antMatchers("/api/sign", "/api/exit").permitAll()
