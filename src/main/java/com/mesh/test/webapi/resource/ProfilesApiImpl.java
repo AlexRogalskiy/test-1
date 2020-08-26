@@ -18,9 +18,11 @@ import javax.ws.rs.core.Response;
 @Component
 public class ProfilesApiImpl implements ProfilesApi {
     ProfileRepository profileRepository;
+    DateTimeService dateTimeService;
 
-    public ProfilesApiImpl(ProfileRepository profileRepository) {
+    public ProfilesApiImpl(ProfileRepository profileRepository, DateTimeService dateTimeService) {
         this.profileRepository = profileRepository;
+        this.dateTimeService = dateTimeService;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class ProfilesApiImpl implements ProfilesApi {
         profileDTO.setName(profileDTO.getName().toLowerCase());
 
         try {
-            profile = profileRepository.save(new Profile(profileDTO, DateTimeService.getCurrent()));
+            profile = profileRepository.save(new Profile(profileDTO, dateTimeService.getCurrent()));
         } catch (DataIntegrityViolationException e) {
             throw new ForbiddenRestException("Запись с таким email уже создана");
         }

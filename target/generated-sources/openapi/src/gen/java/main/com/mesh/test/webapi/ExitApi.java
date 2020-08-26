@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @Path("/exit")
 @Api(description = "the exit API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-26T21:20:49.755125300+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-26T23:44:37.813287300+03:00[Europe/Moscow]")
 public interface ExitApi {
 
     @GET

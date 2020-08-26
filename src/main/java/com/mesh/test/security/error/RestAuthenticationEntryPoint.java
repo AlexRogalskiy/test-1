@@ -11,9 +11,14 @@ import java.io.IOException;
 
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    ExceptionService exceptionService;
+
+    RestAuthenticationEntryPoint(ExceptionService exceptionService) {
+        this.exceptionService = exceptionService;
+    }
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
-        ExceptionService.securityResponse(httpServletResponse);
+        exceptionService.securityResponse(httpServletResponse);
     }
 }

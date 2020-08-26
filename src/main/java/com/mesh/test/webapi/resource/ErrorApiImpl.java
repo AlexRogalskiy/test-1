@@ -8,10 +8,16 @@ import javax.ws.rs.core.Response;
 
 @Component
 public class ErrorApiImpl implements ErrorApi {
+    ExceptionService exceptionService;
+
+    ErrorApiImpl(ExceptionService exceptionService) {
+        this.exceptionService = exceptionService;
+    }
+
     @Override
     public Response getErrorLast() {
         return Response.ok()
-                .entity(ExceptionService.getLastMessage())
+                .entity(exceptionService.getLastMessage())
                 .build();
     }
 }
