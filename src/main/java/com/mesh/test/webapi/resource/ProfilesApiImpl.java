@@ -34,7 +34,6 @@ public class ProfilesApiImpl implements ProfilesApi {
     public Response postProfilesSet(@Valid ProfilesSetRequestDTO profileDTO) {
         Profile profile;
 
-        profileDTO.setEmail(profileDTO.getEmail().toLowerCase());
         profileDTO.setName(profileDTO.getName().toLowerCase());
 
         try {
@@ -71,7 +70,7 @@ public class ProfilesApiImpl implements ProfilesApi {
     @Override
     public Response postProfilesGet(@Valid ProfilesGetRequestDTO profilesGetRequestDTO) {
         String email = profilesGetRequestDTO.getEmail().toLowerCase();
-        Profile profile = profileRepository.findByEmail(email)
+        Profile profile = profileRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new NotFoundRestException("Запись с таким email не найдена"));
 
         return Response.ok()

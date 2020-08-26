@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Path("/error")
 @Api(description = "the error API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-23T14:13:29.776513300+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-26T21:20:49.755125300+03:00[Europe/Moscow]")
 public interface ErrorApi {
 
     @GET

@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @Path("/profiles")
 @Api(description = "the profiles API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-23T14:13:29.776513300+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-26T21:20:49.755125300+03:00[Europe/Moscow]")
 public interface ProfilesApi {
 
     @GET
@@ -28,7 +28,7 @@ public interface ProfilesApi {
         @Authorization(value = "oauth2", scopes = {
             @AuthorizationScope(scope = "read", description = "Чтение")
         })
-    }, tags={  })
+    }, tags={ "profile",  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = ProfileDTO.class, responseContainer = "List"),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ResponseDTO.class, responseContainer = "List") })
@@ -41,7 +41,7 @@ public interface ProfilesApi {
         @Authorization(value = "oauth2", scopes = {
             @AuthorizationScope(scope = "read", description = "Чтение")
         })
-    }, tags={  })
+    }, tags={ "profile",  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = ProfileDTO.class),
         @ApiResponse(code = 404, message = "Not Found", response = ResponseDTO.class),
@@ -55,7 +55,7 @@ public interface ProfilesApi {
         @Authorization(value = "oauth2", scopes = {
             @AuthorizationScope(scope = "read", description = "Чтение")
         })
-    }, tags={  })
+    }, tags={ "profile",  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = ProfileDTO.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ResponseDTO.class) })
@@ -69,7 +69,7 @@ public interface ProfilesApi {
         @Authorization(value = "oauth2", scopes = {
             @AuthorizationScope(scope = "read", description = "Чтение")
         })
-    }, tags={  })
+    }, tags={ "profile",  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = ProfileDTO.class),
         @ApiResponse(code = 404, message = "Not Found", response = ResponseDTO.class),

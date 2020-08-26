@@ -17,13 +17,13 @@ import javax.validation.Valid;
 
 @Path("/sign")
 @Api(description = "the sign API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-23T14:13:29.776513300+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-08-26T21:20:49.755125300+03:00[Europe/Moscow]")
 public interface SignApi {
 
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @ApiOperation(value = "Создать пользователя", notes = "", tags={  })
+    @ApiOperation(value = "Создать пользователя", notes = "", tags={ "sign" })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = SignUserResponseDTO.class),
         @ApiResponse(code = 400, message = "Bad Request", response = ResponseDTO.class),
