@@ -16,7 +16,7 @@ public class ExceptionService {
 
     ExceptionService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
-        this.lastMessage = new Message(null, null);
+        this.lastMessage = new Message("Сообщений об ошибках ещё не было", dateTimeService.getCurrent());
     }
 
     public Message getLastMessage() {

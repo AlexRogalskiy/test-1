@@ -71,7 +71,7 @@ public class ProfilesApiImpl implements ProfilesApi {
 
     @Override
     public Response postProfilesGet(@Valid ProfilesGetRequestDTO profilesGetRequestDTO) {
-        String email = profilesGetRequestDTO.getEmail().toLowerCase();
+        String email = profilesGetRequestDTO.getEmail();
         Profile profile = profileRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new NotFoundRestException("Запись с таким email не найдена"));
 
