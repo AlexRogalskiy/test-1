@@ -78,7 +78,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "http://localhost:8010/test/exit",
+      "url": "http://localhost:8010/test/api/exit",
       "_type": "request"
     },
     {

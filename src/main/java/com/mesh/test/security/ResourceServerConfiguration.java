@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     private final RestAuthenticationEntryPoint authenticationEntryPoint;
 
-    public ResourceServerConfiguration(RestAuthenticationEntryPoint authenticationEntryPoint) {
+    ResourceServerConfiguration(RestAuthenticationEntryPoint authenticationEntryPoint) {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 

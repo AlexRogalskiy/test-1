@@ -15,10 +15,10 @@ import javax.ws.rs.core.Response;
 
 @Component
 public class SignImpl implements SignApi {
-    UserEntityRepository userRepository;
-    PasswordEncoder passwordEncoder;
+    private final UserEntityRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public SignImpl(UserEntityRepository userRepository, PasswordEncoder passwordEncoder) {
+    SignImpl(UserEntityRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }

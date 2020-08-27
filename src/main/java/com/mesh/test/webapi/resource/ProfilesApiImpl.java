@@ -17,10 +17,10 @@ import javax.ws.rs.core.Response;
 
 @Component
 public class ProfilesApiImpl implements ProfilesApi {
-    ProfileRepository profileRepository;
-    DateTimeService dateTimeService;
+    private final ProfileRepository profileRepository;
+    private final DateTimeService dateTimeService;
 
-    public ProfilesApiImpl(ProfileRepository profileRepository, DateTimeService dateTimeService) {
+    ProfilesApiImpl(ProfileRepository profileRepository, DateTimeService dateTimeService) {
         this.profileRepository = profileRepository;
         this.dateTimeService = dateTimeService;
     }

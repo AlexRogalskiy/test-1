@@ -15,7 +15,7 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
     private final UserEntityRepository repository;
 
-    public UserService(UserEntityRepository repository) {
+    UserService(UserEntityRepository repository) {
         this.repository = repository;
     }
 

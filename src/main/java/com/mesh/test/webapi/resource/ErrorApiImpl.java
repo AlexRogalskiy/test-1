@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 public class ErrorApiImpl implements ErrorApi {
-    ExceptionService exceptionService;
+    private final ExceptionService exceptionService;
 
     ErrorApiImpl(ExceptionService exceptionService) {
         this.exceptionService = exceptionService;

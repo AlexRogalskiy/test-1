@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 @Service
 public class ExceptionService {
-    DateTimeService dateTimeService;
+    private final DateTimeService dateTimeService;
     private Message lastMessage;
 
     ExceptionService(DateTimeService dateTimeService) {

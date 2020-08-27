@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 public class ExitApiImpl implements ExitApi {
-    ApplicationContext appContext;
+    private final ApplicationContext appContext;
 
     public ExitApiImpl(ApplicationContext appContext) {
         this.appContext = appContext;

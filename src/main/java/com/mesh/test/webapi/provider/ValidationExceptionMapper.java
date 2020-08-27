@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
     @Inject
-    ExceptionService exceptionService;
+    private ExceptionService exceptionService;
 
     @Override
     public Response toResponse(ConstraintViolationException exception) {

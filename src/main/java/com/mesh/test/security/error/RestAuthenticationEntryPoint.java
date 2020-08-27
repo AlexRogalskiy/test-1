@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
-    ExceptionService exceptionService;
+    private final ExceptionService exceptionService;
 
     RestAuthenticationEntryPoint(ExceptionService exceptionService) {
         this.exceptionService = exceptionService;

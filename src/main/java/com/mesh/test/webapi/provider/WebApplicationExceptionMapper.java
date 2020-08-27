@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplicationException> {
     @Inject
-    ExceptionService exceptionService;
+    private ExceptionService exceptionService;
 
     @Override
     public Response toResponse(WebApplicationException exception) {

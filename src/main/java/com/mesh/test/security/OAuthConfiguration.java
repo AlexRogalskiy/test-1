@@ -14,11 +14,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @Configuration
 @EnableAuthorizationServer
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
-    AuthenticationManager authenticationManager;
-    PasswordEncoder passwordEncoder;
-    UserDetailsService userService;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final UserDetailsService userService;
 
-    public OAuthConfiguration(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder,
+    OAuthConfiguration(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder,
                               UserService userService) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
