@@ -9,9 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    @Query(value = "SELECT a.* FROM profile a " +
-                        "JOIN (SELECT max(created) from profile) b " +
-                            "ON a.created = b.max", nativeQuery = true)
+    @Query(value = "SELECT * FROM profile " +
+            "WHERE created = (SELECT max(created) from profile)", nativeQuery = true)
     Optional<Profile> findByLastDate();
 
     Optional<Profile> findById(int id);
